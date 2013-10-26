@@ -2,7 +2,6 @@ import java.util.*;
 
 class horoscope
 {
-  
   enum Month{January, Febuary, March, April, May, June, July, August, September,
     October, November, December};
   
@@ -12,17 +11,22 @@ class horoscope
   //Creates a static HashMap using an instance initializer to store int/string pairs 
   //for later lookup (why haven't they included collection literals yet...?)
   static final HashMap<Integer, String> daysHash = new HashMap<Integer, String>(){{
-  	put(1,"first"); put(2, "second"); put(3, "third"); put(4, "fourth");
+  	put(1,"first"); put(01,"first"); put(2, "second"); put(3, "third"); put(4, "fourth"); put(5, "fifth");
+    put(6, "sixth");
   }};
+
+  static final HashMap<String, String> horoscopeHash = new HashMap<String, String>(){{
+    put("Aries", "You'll have a great day!");
+  }};
+
  
   public static void main (String[] args)
-  {
-    final int LIMIT = 12;
-    
+  {      
     int birthday;
-    String horoscopeA, infoB;
-    String monthString = " "; //initialize to empty string
-    String dayString = " "; //initialize to empty string
+    String horoscopeA = " ";
+    String infoB = " "; //initialize to empty string
+    String monthString; 
+    String dayString; 
 
     Scanner scan = new Scanner (System.in);
     
@@ -33,6 +37,7 @@ class horoscope
     	System.out.println("error: invalid month input");
     	System.exit(0);
     }
+
     System.out.println("What day (number)");
     int day = scan.nextInt();
     //Check for valid input day
@@ -43,12 +48,34 @@ class horoscope
     
     //This grabs the value in the Month enum corresponding to the user-inputed 'month' and
     //converts it to a String   
-    monthString = Month.values()[month - 1].toString();
-    
+    monthString = Month.values()[month - 1].toString();  
+
     //This grabs the correct day from the Days enum and converts it to a String    
     dayString = daysHash.get(day);
 
     System.out.println("Your birthday is: " + monthString + " " + dayString);
+
+    //non-elegant horoscope matchers
+    if((month == 1 && day <= 19) || (month == 12 && day >= 22)){        
+      horoscopeA = Horoscope.values()[9].toString();  
+      infoB = "You'll have a great day!";
+    }
+      //horoscopeA = horoscope.key("Aries"); //"Aries"
+      //infoB = horoscope.get("Aries"); //"You'll have a great day!"
+    else if((month == 1 && day >= 20) || (month == 2 && day <= 18)){ 
+      horoscopeA = Horoscope.values()[10].toString();
+      infoB = "you may have a bad day.";
+    }
+    //else if((month == 2))
+
+    System.out.println("Your sign is: " + horoscopeA);
+    System.out.println("Your horoscope is: " + infoB);
+
+
+
+
+//*****************************************************************************
+
 
 
 /* Switch statements (pretty much if/else statements)    
@@ -56,7 +83,7 @@ class horoscope
         case 1:  monthString = "January";
             break;
         case 2:  monthString = "February";
-            break;
+            break;    
         case 3:  monthString = "March";
             break;
         case 4:  monthString = "April";
@@ -78,7 +105,7 @@ class horoscope
         case 12: monthString = "December";
             break;
         default: System.out.println = "error";
-                 break;
+            break;
     }
 */
 
